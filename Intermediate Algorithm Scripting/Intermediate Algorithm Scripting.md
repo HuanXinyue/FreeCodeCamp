@@ -140,3 +140,54 @@ for ( variable in obj) {
 
 1. `for...in` 循环不会按照属性的下标来排列输出
 2. `for...in` 输出的是数组的索引而不是数组内容
+
+
+
+#### Search and Replace
+
+> 使用给定的参数对句子执行一次查找和替换，然后返回新句子。
+>
+> 第一个参数是将要对其执行查找和替换的句子。
+>
+> 第二个参数是将被替换掉的单词（替换前的单词）。
+>
+> 第三个参数用于替换第二个参数（替换后的单词）。
+>
+> 注意：替换时保持原单词的大小写。例如，如果你想用单词 "dog" 替换单词 "Book" ，你应该替换成 "Dog"。
+>
+> - [Array.splice()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)
+>
+>
+> - [String.replace()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/replace)
+>
+>
+> - [Array.join()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
+
+这道题考察了之前的一个知识点，如何用JS实现首字母大写，其实CSS中更好实现
+
+另外`indexOf` 参数只能是字符串，而`match` `search` 才可以放正则哦
+
+
+
+#### Pig Latin
+
+> 把指定的字符串翻译成 pig latin。
+>
+> [Pig Latin](http://en.wikipedia.org/wiki/Pig_Latin) 把一个英文单词的第一个辅音或辅音丛（consonant cluster）移到词尾，然后加上后缀 "ay"。
+>
+> 如果单词以元音开始，你只需要在词尾添加 "way" 就可以了。
+>
+> - [Array.indexOf()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
+>
+>
+> - [Array.push()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
+>
+>
+> - [Array.join()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
+>
+>
+> - [String.substr()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/substr)
+>
+>
+> - [String.split()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/split)
+
