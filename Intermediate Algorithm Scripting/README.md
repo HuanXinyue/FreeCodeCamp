@@ -60,7 +60,7 @@ callback 被调用四次，每次调用的参数和返回值如下表：
 
 
 
-### Diff Two Arrays
+### 2. Diff Two Arrays
 
 > 比较两个数组，然后返回一个新数组，该数组的元素为两个给定数组中所有独有的数组元素。换言之，返回两个数组的差异。
 
@@ -72,15 +72,13 @@ callback 被调用四次，每次调用的参数和返回值如下表：
 
 
 
-### Roman Numeral Converter
+### 3. Roman Numeral Converter
 
 > 将给定的数字转换成罗马数字。
 >
 > 所有返回的 [罗马数字](http://www.mathsisfun.com/roman-numerals.html) 都应该是大写形式。
 
-#### 罗马数字计算规则
-
-** Forming Numbers - The Rules **
+**罗马数字计算规则 Forming Numbers - The Rules** 
 
 - When a symbol appears **after a larger** symbol it is **added**
   - Example: VI = V + I = 5 + 1 = 6
@@ -111,7 +109,7 @@ convert(2343);
 
 
 
-### Where art thou
+### 4. Where art thou
 
 > 写一个 function，它遍历一个对象数组（第一个参数）并返回一个包含相匹配的属性-值对（第二个参数）的所有对象的数组。如果返回的数组中包含 source 对象的属性-值对，那么此对象的每一个属性-值对都必须存在于 collection 的对象中。
 >
@@ -119,13 +117,13 @@ convert(2343);
 
 
 
-#### 1. Object.keys()
+#### (1) Object.keys()
 
 **Object.keys()** 方法会返回一个由给定对象的自身可枚举属性组成的数组，数组中属性名的排列顺序和使用 [`for...in`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...in) 循环遍历该对象时返回的顺序一致 （两者的主要区别是 一个 for-in 循环还会枚举其原型链上的属性）。
 
 
 
-#### 2. for...in
+#### (2) for...in
 
 `for...in` 语句用于对数组或者对象的**可枚举**的属性进行循环操作。
 
@@ -143,7 +141,8 @@ for ( variable in obj) {
 
 
 
-#### Search and Replace
+
+### 5. Search and Replace
 
 > 使用给定的参数对句子执行一次查找和替换，然后返回新句子。
 >
@@ -169,7 +168,7 @@ for ( variable in obj) {
 
 
 
-#### Pig Latin
+### 6. Pig Latin
 
 > 把指定的字符串翻译成 pig latin。
 >
@@ -190,4 +189,77 @@ for ( variable in obj) {
 >
 >
 > - [String.split()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/split)
+
+这道题依然是字符串拼接，但是如果字符串没有元音怎么办。。。那就保持不变吗。。。
+
+
+
+翻到了一种更好的写法...............
+
+```javascript
+function translate(str) {
+  str = str.replace(/\b([aeiou][a-z]*)\b/gi, "$1way"); // 表示，如果开头为aeiou，那么尾部加上way
+  str = str.replace(/\b([bcdfghjklmnpqrstvwxy]+)([a-z]*)\b/gi, "$2$1ay"); // 如果开头为辅音，第二部分——第一部分——ay
+  return str;
+}
+```
+
+
+
+
+
+### 7. DNA Pairing
+
+> DNA 链缺少配对的碱基。依据每一个碱基，为其找到配对的碱基，然后将结果作为第二个数组返回。
+>
+> [Base pairs（碱基对）](http://en.wikipedia.org/wiki/Base_pair) 是一对 AT 和 CG，为给定的字母匹配缺失的碱基。
+>
+> 在每一个数组中将给定的字母作为第一个碱基返回。
+>
+> 例如，对于输入的 GCG，相应地返回 [["G", "C"], ["C","G"],["G", "C"]]
+>
+> 字母和与之配对的字母在一个数组内，然后所有数组再被组织起来封装进一个数组。
+
+题目没难度，但是欺负我生物全忘光了吗（哭哭...理科生的尊严没有了）
+
+
+
+### 8. Missing letters
+
+> 从传递进来的字母序列中找到缺失的字母并返回它。
+>
+> 如果所有字母都在序列中，返回 undefined。
+
+#### (1) String.charCodeAt() 
+
+```javascript
+String.fromCharCode(num1, ..., numN) 
+```
+
+
+
+#### (2) String.fromCharCode()
+
+```javascript
+str.charCodeAt(index);
+
+```
+
+字符串的最后一个必须用`str.charCodeAt(str.length - 1)`, 不存在str[-1]
+
+
+
+在这道题中，记得检测到最后一个字母，很有可能就是最后一个字母有问题，然后被跳过了
+
+
+
+### 9. Boo who
+
+> 检查一个值是否是基本布尔类型，并返回 true 或 false。
+
+检测数据类型的终极法宝
+
+```javascript
+Object.prototype.toString.call(item) == "[Object type]";
+```
 
