@@ -332,3 +332,54 @@ unite([1, 3, 2], [5, 2, 1]);
 
 但是在题目中忽略了参数个数的问题，导致了传入两个数组时arr3未定义，所以以后要多加注意
 
+### 11 Convert HTML Entities
+
+> 将字符串中的字符 `&`、`<`、`>`、`"` （双引号）, 以及 `'` （单引号）转换为它们对应的 HTML 实体。
+>
+> - [RegExp](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
+>
+>
+> - [HTML Entities](http://dev.w3.org/html5/html-author/charref)
+
+第一次写的思路有问题，
+
+```javascript
+function convert(str) {
+	var re = /[\&\<\>\"\']/g;
+	var entities = {
+		"&" : "&amp;",
+		"<" : "&lt;",
+		">" : "&gt;",
+		'\"': "&quot;",
+		"\'": "&apos;"
+	};
+	var arr = str.match(re);
+	for(var i = 0; i < arr.length; i++) {
+		str = str.replace(arr[i], entities[arr[i]]);
+	}
+	return str;
+}
+
+convert("Dolce && Gabbana"); // "Dolce &amp;amp;& Gabbana"
+```
+
+如果str中有两个&，第一次替换之后就会多出来一个“& amp;，所以必须在原字符串上直接替换。
+
+```javascript
+function convert(str) {
+	var re = /[\&\<\>\"\']/g;
+	var entities = {
+		"&" : "&amp;",
+		"<" : "&lt;",
+		">" : "&gt;",
+		'\"': "&quot;",
+		"\'": "&apos;"
+	};
+	str = str.replace(re, function(val) {
+		return entities[val];
+	});
+	return str;
+}
+convert("Dolce && Gabbana");
+```
+
