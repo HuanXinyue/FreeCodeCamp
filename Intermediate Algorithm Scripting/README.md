@@ -260,6 +260,75 @@ str.charCodeAt(index);
 检测数据类型的终极法宝
 
 ```javascript
-Object.prototype.toString.call(item) == "[Object type]";
+Object.prototype.toString.call(item) == "[object type]";
 ```
+
+
+
+### 10. Sorted Union
+
+> 写一个 function，传入两个或两个以上的数组，返回一个以给定的原始数组排序的不包含重复值的新数组。
+>
+> 换句话说，所有数组中的所有值都应该以原始顺序被包含在内，但是在最终的数组中不包含重复值。
+
+网上看到的一篇关于
+
+[JavaScript中合并数组的N种方法]: http://www.jb51.net/article/55204.htm
+
+觉得很棒啊，咱什么时候能到主动分析输出文章的阶段呐
+
+```javascript
+a = b.reduce( function(accumulator,currentValue){
+    coll.push( item );
+    return coll;
+}, a );
+a; // [1,2,3,4,5,6,7,8,9,"foo","bar","baz","bam","bun","fun"]
+```
+
+宝宝我上午刚刚对`reduce` 有一点了解了，又来/(ㄒoㄒ)/~~
+
+这道题第二个关键点是数组的去重，最常规的是经过两次循环
+
+```javascript
+function unite(arr1, arr2, arr3) {
+	// 拼接数组
+	var unionArr = arr1.concat(arr2, arr3);
+	// 数组去重
+	var finalArr = [unionArr[0]];
+	for(var i = 1; i < unionArr.length; i++) {
+		var repeated = false;
+		for(var j = 0; j < finalArr.length; j++) {
+			if (unionArr[i] == finalArr[j]) {
+				repeated = true;
+				break;
+			}
+		}
+		if (!repeated) finalArr.push(unionArr[i]);
+	}
+  return finalArr;
+}
+```
+
+比较高效的方法是
+
+```javascript
+function unite() {
+	// 拼接数组
+	var unionArr = [];
+    unionArr = unionArr.concat(...arguments);
+	// 数组去重
+	var finalArr = [];
+	var temp = {};
+	for(var i = 0; i < unionArr.length; i++) {
+		if (!temp[unionArr[i]]) {
+			temp[unionArr[i]] = true;
+			finalArr.push(unionArr[i]);
+		}
+	}
+  return finalArr;
+}
+unite([1, 3, 2], [5, 2, 1]);
+```
+
+但是在题目中忽略了参数个数的问题，导致了传入两个数组时arr3未定义，所以以后要多加注意
 
