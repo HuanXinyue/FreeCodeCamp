@@ -383,3 +383,115 @@ function convert(str) {
 convert("Dolce && Gabbana");
 ```
 
+
+
+### Spinal Tap Case
+
+> 将字符串转换为 spinal case。Spinal case 是 all-lowercase-words-joined-by-dashes 这种形式的，也就是以连字符连接所有小写单词。
+
+第一次真正使用正则的分组，纪念一下
+
+```javascript
+str = str.replace(/([A-Z])/g, " $1");
+
+// str = str.replace(/[A-Z]/g, function(val){
+  return " "+val;
+})
+```
+
+
+
+### Sum All Odd Fibonacci Numbers
+
+> 给一个正整数`num`，返回小于或等于`num`的斐波纳契奇数之和。
+>
+> 斐波纳契数列中的前几个数字是 1、1、2、3、5 和 8，随后的每一个数字都是前两个数字之和。
+>
+> 例如，sumFibs(4)应该返回 5，因为斐波纳契数列中所有小于4的奇数是 1、1、3。
+>
+> 提示：此题不能用递归来实现斐波纳契数列。因为当`num`较大时，内存会溢出，推荐用数组来实现。
+>
+> 参考文档：[博客园](http://www.cnblogs.com/meteoric_cry/archive/2010/11/29/1891241.html)，[Issue](https://github.com/FreeCodeCampChina/freecodecamp.cn/issues/19)
+
+一看到斐波拉契就想到递归，结果说会内存泄露 无奈，不过以前真没考虑过，初学渣渣。
+
+```javascript
+var sum = fib.reduce(function(ac, val) {
+	if (val <= num && val%2 == 1) {
+		return ac + val;
+	}else {
+		return ac;  //reduce每一次必须明确有accumulator返回，没有就是undefined,无法进行下一个操作
+	}
+}, 0);
+```
+
+**Attention:**  reduce每一次必须明确有accumulator返回，没有就是undefined,无法进行下一个操作
+
+
+
+### Sum All Primes
+
+> 求小于等于给定数值的质数之和。
+>
+> 只有 1 和它本身两个约数的数叫质数。例如，2 是质数，因为它只能被 1 和 2 整除。1 不是质数，因为它只能被自身整除。
+>
+> 给定的数不一定是质数。
+
+最开始的思路就是一个个试看是不是质数
+
+```javascript
+function sumPrimes(num) {
+	var primes = [];
+	for(var i = 2; i <= num; i++) {
+		var isPrimes = true;
+		for (var j = 2; j < i; j++) {
+			if (i % j == 0) {
+				isPrimes = false;
+				break;
+			}
+		}
+		if (isPrimes) primes.push(i);
+	}
+	var sum = primes.reduce(function(acc,val){
+		console.log(val);
+		return acc + val;
+	});
+	return sum;
+}
+sumPrimes(10);
+```
+
+觉得太麻烦，所以就去翻了一下质数的求法，真的是在笔算的时候还记得只要除以质数去判断，到了电脑上就忘了...
+
+```javascript
+function sumPrimes(num) {
+	var primes = [];
+	for(var i = 2; i <= num; i++) {
+		var isPrimes = true;
+		for (var j = 0; j < primes.length; j++) {
+			if (i % primes[j] == 0) {
+				isPrimes = false;
+				break;
+			}
+		}
+		if (isPrimes) primes.push(i);
+	}
+	var sum = primes.reduce(function(acc,val){
+		console.log(val);
+		return acc + val;
+	});
+	return sum;
+}
+
+sumPrimes(10);
+```
+
+
+
+### Smallest Common
+
+> 找出能被两个给定参数和它们之间的连续数字整除的最小公倍数。
+>
+> 范围是两个数字构成的数组，两个数字不一定按数字顺序排序。
+>
+> - [Smallest Common Multiple](https://www.mathsisfun.com/least-common-multiple.html)
