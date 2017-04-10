@@ -21,8 +21,6 @@ function checkCashRegister(price, cash, cid) {
         [10000, cid[8][1]/10000]  
     ];
 
-    // var faceValue = [0.01, 0.05, 0.10, 0.50, 1.00, ]
-    // Here is your change, ma'am.
     var newCid = [];
     for (var i = cidCount.length-1; i >= 0 ; i--) {
     	var j = 0;

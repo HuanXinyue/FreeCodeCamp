@@ -1,5 +1,3 @@
-
-
 ## Advanced Algorithm Scripting
 
 ### 1. Validate US Telephone Numbers

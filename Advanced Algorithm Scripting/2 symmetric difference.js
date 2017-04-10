@@ -1,5 +1,6 @@
 function sym(args) {
 	var argsArr = Array.prototype.slice.call(arguments);
+	
 	return argsArr.reduce(function(acc, cur) {
 		var set = [];
 		for(var i = 0; i < acc.length; i++) {
@@ -15,5 +16,6 @@ function sym(args) {
 	    return set;
 	});
 }
+
 
 sym([1, 2, 3], [5, 2, 1, 4]);
