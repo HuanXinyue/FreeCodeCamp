@@ -191,3 +191,46 @@ checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1
 
 
 
+### 4. Inventory Update
+
+> 依照一个存着新进货物的二维数组，更新存着现有库存(在 `arr1` 中)的二维数组. 如果货物已存在则更新数量 . 如果没有对应货物则把其加入到数组中，更新最新的数量. 返回当前的库存数组，且按货物名称的字母顺序排列.
+
+```javascript
+function updateInventory(arr1, arr2) {
+    // All inventory must be accounted for or you're fired!
+    for(var i = 0; i < arr2.length; i++){
+        var exist = false;
+        for(var j = 0; j < arr1.length; j++) {
+            if (arr2[i][1] === arr1[j][1]) {
+                arr1[j][0] += arr2[i][0];
+                exist = true;
+                break;
+            }
+        }
+        if(!exist) arr1.push(arr2[i]);
+    }
+    arr1.sort(function(val1, val2) {
+        return val1[1].charCodeAt(0) - val2[1].charCodeAt(0);
+    });
+    return arr1;
+}
+// Example inventory lists
+var curInv = [
+    [21, "Bowling Ball"],
+    [2, "Dirty Sock"],
+    [1, "Hair Pin"],
+    [5, "Microphone"]
+];
+
+var newInv = [
+    [2, "Hair Pin"],
+    [3, "Half-Eaten Apple"],
+    [67, "Bowling Ball"],
+    [7, "Toothpaste"]
+];
+
+updateInventory(curInv, newInv);
+```
+
+
+
