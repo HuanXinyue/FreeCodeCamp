@@ -271,9 +271,7 @@ Object.prototype.toString.call(item) == "[object type]";
 >
 > 换句话说，所有数组中的所有值都应该以原始顺序被包含在内，但是在最终的数组中不包含重复值。
 
-网上看到的一篇关于
-
-[JavaScript中合并数组的N种方法]: http://www.jb51.net/article/55204.htm
+网上看到的一篇关于 [JavaScript中合并数组的N种方法](http://www.jb51.net/article/55204.htm)
 
 觉得很棒啊，咱什么时候能到主动分析输出文章的阶段呐
 
@@ -332,7 +330,7 @@ unite([1, 3, 2], [5, 2, 1]);
 
 但是在题目中忽略了参数个数的问题，导致了传入两个数组时arr3未定义，所以以后要多加注意
 
-### 11 Convert HTML Entities
+### 11. Convert HTML Entities
 
 > 将字符串中的字符 `&`、`<`、`>`、`"` （双引号）, 以及 `'` （单引号）转换为它们对应的 HTML 实体。
 >
@@ -385,7 +383,7 @@ convert("Dolce && Gabbana");
 
 
 
-### Spinal Tap Case
+### 12. Spinal Tap Case
 
 > 将字符串转换为 spinal case。Spinal case 是 all-lowercase-words-joined-by-dashes 这种形式的，也就是以连字符连接所有小写单词。
 
@@ -401,7 +399,7 @@ str = str.replace(/([A-Z])/g, " $1");
 
 
 
-### Sum All Odd Fibonacci Numbers
+### 13. Sum All Odd Fibonacci Numbers
 
 > 给一个正整数`num`，返回小于或等于`num`的斐波纳契奇数之和。
 >
@@ -429,7 +427,7 @@ var sum = fib.reduce(function(ac, val) {
 
 
 
-### Sum All Primes
+### 14. Sum All Primes
 
 > 求小于等于给定数值的质数之和。
 >
@@ -488,10 +486,193 @@ sumPrimes(10);
 
 
 
-### Smallest Common
+### 15. Smallest Common Multiple
 
 > 找出能被两个给定参数和它们之间的连续数字整除的最小公倍数。
 >
 > 范围是两个数字构成的数组，两个数字不一定按数字顺序排序。
 >
 > - [Smallest Common Multiple](https://www.mathsisfun.com/least-common-multiple.html)
+
+- 首先要了解`欧拉算法`求最大公约数
+- 用彼此的乘机除以最大公约数求得最小公倍数
+
+**欧拉算法**
+
+求两个数的最大公约数，用大数对小数求模，如果能被整除，则小数是这两个数之间的最大公约数
+
+如果不能整除，就用小数对余数再次求模，循环此过程直到返回能除尽的那个除数
+
+```javascript
+function greatestCommons(num1, num2) {
+	if (num2 % num1 == 0) {
+		return num1;
+	}else {
+		return greatestCommons(num2 % num1, num1);
+	}
+}
+```
+
+
+
+### 16. Find Keepers
+
+> 写一个 function，它浏览数组（第一个参数）并返回数组中第一个通过某种方法（第二个参数）验证的元素。
+
+```javascript
+function find(arr, func) {
+  arr = arr.filter(func);
+  return arr[0];
+}
+
+find([1, 2, 3, 4], function(num){ return num % 2 === 0; });
+```
+
+突然来道这么简单的题，逗我吗。。。
+
+
+
+### 17. Drop it
+
+> **队友该卖就卖，千万别舍不得。**
+>
+> 让我们来丢弃数组(arr)的元素，从左边开始，直到回调函数return true就停止。
+>
+> 第二个参数，`func`，是一个函数。用来测试数组的第一个元素，如果返回fasle，就从数组中抛出该元素(注意：此时数组已被改变)，继续测试数组的第一个元素，如果返回fasle，继续抛出，直到返回true。
+>
+> 最后返回数组的剩余部分，如果没有剩余，就返回一个空数组。
+
+这道题的关键是，只要找到一个就返回之后的所有数组了，之后的项满足条件与否无所谓
+
+```javascript
+function drop(arr, func) {
+  // Drop them elements.
+  var bool = false;
+  for(var i = 0; i < arr.length; i++) {
+  	if (func(arr[i])) {
+  		bool = true;
+  		arr = arr.slice(i);
+  		break;
+  	}
+  }
+  if (!bool) {
+  	arr = [];
+  }
+  return arr;
+}
+
+drop([1, 2, 3], function(n) {return n < 3; });
+```
+
+
+
+### 18. Steamroller
+
+> 对嵌套的数组进行扁平化处理。你必须考虑到不同层级的嵌套。
+>
+> `steamroller([[["a"]], [["b"]]])` 应该返回 `["a", "b"]`。
+>
+> `steamroller([1, [2], [3, [[4]]]])` 应该返回 `[1, 2, 3, 4]`。
+>
+> `steamroller([1, [], [3, [[4]]]])` 应该返回 `[1, 3, 4]`。
+>
+> `steamroller([1, {}, [3, [[4]]]])` 应该返回 `[1, {}, 3, 4]`。
+
+看到这一道题想起来 百度IFE 2015年的一道克隆数组的题，先进行判断，是数组或对象就利用递归一直搞出最里面的内容就好了
+
+```javascript
+function steamroller(arr) {
+    // I'm a steamroller, baby
+    var newArr = [];
+    for(var i = 0; i < arr.length; i++) {
+    	newArr = Array.isArray(arr[i])? newArr.concat(steamroller(arr[i])) : newArr.push(arr[i]);
+    }
+    return newArr;
+}
+steamroller([1, [2], [3, [[4]]]]);
+
+```
+
+可是当我想试图简化一下`if` 的时候，又出bug了
+
+```javascript
+newArr = Array.isArray(arr[i])? newArr.concat(steamroller(arr[i])) : newArr.push(arr[i]);
+```
+
+报错
+
+```javascript
+TypeError: newArr.concat is not a function
+```
+
+至今也没想明白，有没有人知道呢......
+
+
+
+### 19. Binary Agents
+
+> 传入二进制字符串，翻译成英语句子并返回。
+>
+> 二进制字符串是以空格分隔的。
+
+（1） 将字符串分割
+
+（2）二进制转十进制
+
+```javascript
+toString(2); //转二进制
+parseInt("101110100", 2); //转十进制
+```
+
+（3）Unicode编码转字符
+
+```javascript
+function binaryAgent(str) {
+	var arr = str.split(" ");
+	str = "";
+	arr.forEach(function(val) {
+		str += String.fromCharCode(parseInt(val, 2));
+	});
+    return str;
+}
+
+binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111");
+```
+
+当然在执行的时候，把（2）、（3）合并了，不然要遍历两次数组
+
+
+
+### 20. Everything Be True
+
+> **所有的东西都是真的！**
+>
+> 完善编辑器中的every函数，如果集合(collection)中的所有对象都存在对应的属性(pre)，并且属性(pre)对应的值为真。函数返回ture。反之，返回false。
+>
+> 记住：你只能通过中括号来访问对象的变量属性(pre)。
+
+```javascript
+function every(collection, pre) {
+  // Is everyone being true?
+    return collection.every(function(val){
+    	return val[pre];
+    });
+}
+every([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex");
+```
+
+
+
+### 21. Arguments Optional
+
+> 创建一个计算两个参数之和的 function。如果只有一个参数，则返回一个 function，该 function 请求一个参数然后返回求和的结果。
+>
+> 例如，`add(2, 3)` 应该返回 `5`，而 `add(2)` 应该返回一个 function。
+>
+> 调用这个有一个参数的返回的 function，返回求和的结果：
+>
+> `var sumTwoAnd = add(2);`
+>
+> `sumTwoAnd(3)` 返回 `5`。
+>
+> 如果两个参数都不是有效的数字，则返回 undefined。
